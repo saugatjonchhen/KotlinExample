@@ -1,21 +1,25 @@
 package com.saugatjonchhen.kotlin.example.viewmodel_example
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+
 
 class AddExampleViewModel(startingValue: Int) : ViewModel() {
 
-    private var value = 0
+    private var total = MutableLiveData<Int>()
+    val totalData: LiveData<Int>
+        get() = total
+
+    val inputText = MutableLiveData<String>()
 
     init {
-        value = startingValue
+        total.value = startingValue
     }
 
-    fun getCurrentValue(): Int {
-        return value
-    }
-
-    fun setTotal(addedValue: Int) {
-        value += addedValue
+    fun setTotal() {
+        val intInput: Int = inputText.value!!.toInt()
+        total.value = (total.value)?.plus(intInput)
     }
 
 }
